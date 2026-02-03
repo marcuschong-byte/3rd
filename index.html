@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be My Valentine? 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: pink;
+      font-family: 'Comic Sans MS', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* FLOWER BORDER */
+    .border {
+      position: fixed;
+      font-size: 24px;
+      white-space: nowrap;
+      z-index: 0;
+    }
+
+    .top { top: 0; left: 0; right: 0; text-align: center; }
+    .bottom { bottom: 0; left: 0; right: 0; text-align: center; }
+    .left { top: 0; bottom: 0; left: 0; writing-mode: vertical-rl; text-align: center; }
+    .right { top: 0; bottom: 0; right: 0; writing-mode: vertical-rl; text-align: center; }
+
+    /* MAIN CARD */
+    .container {
+      position: relative;
+      background: white;
+      padding: 35px 25px;
+      border-radius: 25px;
+      width: 330px;
+      text-align: center;
+      z-index: 1;
+      box-shadow: 0 0 0 6px #fff,
+                  0 0 0 14px #ffb6c1;
+    }
+
+    /* HEART OUTLINE */
+    .container::before {
+      content: "💖 💕 💗 💓 💞 💘 💖 💕 💗 💓 💞 💘";
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      border-radius: 35px;
+      font-size: 18px;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d63384;
+    }
+
+    button {
+      padding: 10px 22px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .yes { background-color: #ff69b4; color: white; }
+    .no { background-color: #aaa; color: white; }
+
+    img {
+      width: 200px;
+      margin-top: 15px;
+      border-radius: 12px;
+    }
+
+    #result { display: none; }
+
+    /* FLOATING EFFECTS */
+    .float {
+      position: fixed;
+      animation: floatUp 4s linear forwards;
+      font-size: 24px;
+      z-index: 5;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .rain {
+      position: fixed;
+      animation: rainDown 3s linear forwards;
+      font-size: 26px;
+      z-index: 5;
+    }
+
+    @keyframes rainDown {
+      from { transform: translateY(-10vh); opacity: 1; }
+      to { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- FLOWER BORDERS -->
+  <div class="border top">🌸🌼🌺🌷🌸🌼🌺🌷🌸🌼🌺🌷</div>
+  <div class="border bottom">🌸🌼🌺🌷🌸🌼🌺🌷🌸🌼🌺🌷</div>
+  <div class="border left">🌸🌼🌺🌷🌸🌼🌺🌷🌸🌼🌺🌷</div>
+  <div class="border right">🌸🌼🌺🌷🌸🌼🌺🌷🌸🌼🌺🌷</div>
+
+  <!-- CONTENT -->
+  <div class="container">
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="no" onclick="noClicked()">No</button>
+
+    <div id="result">
+      <h2 id="resultText"></h2>
+      <img id="resultImg">
+    </div>
+
+    <img id="donkey" src="images/donkey.gif" alt="Donkey">
+  </div>
+
+  <!-- SOUNDS -->
+  <audio id="yaySound" src="sounds/yay.mp3"></audio>
+  <audio id="awwSound" src="sounds/aww.mp3"></audio>
+
+  <script>
+    function yesClicked() {
+      document.getElementById("donkey").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("resultText").innerText = "YIPEE!!! 💕🎉";
+      document.getElementById("resultImg").src = "images/roderick.webp";
+      document.getElementById("yaySound").play();
+
+      for (let i = 0; i < 15; i++) {
+        let el = document.createElement("div");
+        el.className = "float";
+        el.style.left = Math.random() * 100 + "vw";
+        el.innerText = Math.random() > 0.5 ? "☁️" : "💖";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+      }
+    }
+
+    function noClicked() {
+      document.getElementById("donkey").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("resultText").innerText = "";
+      document.getElementById("resultImg").src = "images/alden.jpg";
+      document.getElementById("awwSound").play();
+
+      for (let i = 0; i < 15; i++) {
+        let el = document.createElement("div");
+        el.className = "rain";
+        el.style.left = Math.random() * 100 + "vw";
+        el.innerText = "🥺";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
